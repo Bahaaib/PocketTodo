@@ -11,7 +11,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/pocket" />
 
     <TextView
         android:layout_width="match_parent"

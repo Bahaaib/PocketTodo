@@ -1,5 +1,6 @@
 package bahaa.apps.pockettodo.about;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,10 +12,12 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import bahaa.apps.pockettodo.R;
 import bahaa.apps.pockettodo.core.BaseActivity;
+import bahaa.apps.pockettodo.main.MainActivity;
 import bahaa.apps.pockettodo.main.MainFragment;
 
 public class AboutActivity extends BaseActivity {
@@ -31,16 +34,16 @@ public class AboutActivity extends BaseActivity {
 
         theme = getSharedPreferences(MainFragment.THEME_PREFERENCES, MODE_PRIVATE).getString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
         if (theme.equals(MainFragment.DARKTHEME)) {
-            Log.d("OskarSchindler", "One");
+            Log.d("Statuss", "One");
             setTheme(R.style.CustomStyle_DarkTheme);
         } else {
-            Log.d("OskarSchindler", "One");
+            Log.d("Statuss", "One");
             setTheme(R.style.CustomStyle_LightTheme);
         }
 
         super.onCreate(savedInstanceState);
 
-        final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         if (backArrow != null) {
             backArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         }
@@ -51,12 +54,21 @@ public class AboutActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(backArrow);
         }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent main = new Intent(AboutActivity.this, MainActivity.class);
+                main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(main);
+            }
+        });
     }
 
     @Override

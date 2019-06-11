@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +29,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.content.ClipboardManager;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -39,15 +39,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import bahaa.apps.pockettodo.R;
+import bahaa.apps.pockettodo.core.BaseFragment;
+import bahaa.apps.pockettodo.main.MainActivity;
+import bahaa.apps.pockettodo.main.MainFragment;
+import bahaa.apps.pockettodo.utils.TodoItem;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
-
-import bahaa.apps.pockettodo.R;
-import bahaa.apps.pockettodo.core.BaseFragment;
-import bahaa.apps.pockettodo.main.MainFragment;
-import bahaa.apps.pockettodo.utils.TodoItem;
 
 public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private static final String TAG = "todoFragment";
@@ -57,7 +58,6 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
     private EditText mToDoTextBodyDescription;
 
     private SwitchCompat mToDoDateSwitch;
-    //    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
 
@@ -98,13 +98,13 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
         }
 
 
-        //Show an X in place of <-
-        final Drawable cross = getResources().getDrawable(R.drawable.ic_clear_white_24dp);
+        //Show exit icon
+        final Drawable cross = ContextCompat.getDrawable(getActivity(), R.drawable.ic_clear_white_24dp);
         if (cross != null) {
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
 
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
@@ -114,6 +114,15 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
             ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(cross);
 
         }
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent main = new Intent(getActivity(), MainActivity.class);
+                main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(main);
+            }
+        });
 
 
         mUserToDoItem = (TodoItem) getActivity().getIntent().getSerializableExtra(MainFragment.TODOITEM);
@@ -125,8 +134,8 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
         mUserColor = mUserToDoItem.getTodoColor();
 
 
-        reminderIconImageButton = (ImageButton) view.findViewById(R.id.userToDoReminderIconImageButton);
-        reminderRemindMeTextView = (TextView) view.findViewById(R.id.userToDoRemindMeTextView);
+        reminderIconImageButton = view.findViewById(R.id.userToDoReminderIconImageButton);
+        reminderRemindMeTextView = view.findViewById(R.id.userToDoRemindMeTextView);
         if (theme.equals(MainFragment.DARKTHEME)) {
             reminderIconImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_alarm_add_white_24dp));
             reminderRemindMeTextView.setTextColor(Color.WHITE);
@@ -134,15 +143,15 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
 
 
         //Button for Copy to Clipboard
-        mCopyClipboard = (Button) view.findViewById(R.id.copyclipboard);
+        mCopyClipboard = view.findViewById(R.id.copyclipboard);
 
-        mContainerLayout = (LinearLayout) view.findViewById(R.id.todoReminderAndDateContainerLayout);
-        mUserDateSpinnerContainingLinearLayout = (LinearLayout) view.findViewById(R.id.toDoEnterDateLinearLayout);
-        mToDoTextBodyEditText = (EditText) view.findViewById(R.id.userToDoEditText);
-        mToDoTextBodyDescription = (EditText) view.findViewById(R.id.userToDoDescription);
-        mToDoDateSwitch = (SwitchCompat) view.findViewById(R.id.toDoHasDateSwitchCompat);
-        mToDoSendFloatingActionButton = (FloatingActionButton) view.findViewById(R.id.makeToDoFloatingActionButton);
-        mReminderTextView = (TextView) view.findViewById(R.id.newToDoDateTimeReminderTextView);
+        mContainerLayout = view.findViewById(R.id.todoReminderAndDateContainerLayout);
+        mUserDateSpinnerContainingLinearLayout = view.findViewById(R.id.toDoEnterDateLinearLayout);
+        mToDoTextBodyEditText = view.findViewById(R.id.userToDoEditText);
+        mToDoTextBodyDescription = view.findViewById(R.id.userToDoDescription);
+        mToDoDateSwitch = view.findViewById(R.id.toDoHasDateSwitchCompat);
+        mToDoSendFloatingActionButton = view.findViewById(R.id.makeToDoFloatingActionButton);
+        mReminderTextView = view.findViewById(R.id.newToDoDateTimeReminderTextView);
 
 
         //OnClickListener for CopyClipboard Button
@@ -254,8 +263,8 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
         });
 
 
-        mDateEditText = (EditText) view.findViewById(R.id.newTodoDateEditText);
-        mTimeEditText = (EditText) view.findViewById(R.id.newTodoTimeEditText);
+        mDateEditText = view.findViewById(R.id.newTodoDateEditText);
+        mTimeEditText = view.findViewById(R.id.newTodoTimeEditText);
 
         mDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,7 +273,6 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
                 Date date;
                 hideKeyboard(mToDoTextBodyEditText);
                 if (mUserToDoItem.getToDoDate() != null) {
-//                    date = mUserToDoItem.getToDoDate();
                     date = mUserReminderDate;
                 } else {
                     date = new Date();
@@ -344,7 +352,7 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
             }
             cal.set(Calendar.MINUTE, 0);
             mUserReminderDate = cal.getTime();
-            Log.d("OskarSchindler", "Imagined Date: " + mUserReminderDate);
+            Log.d("Statuss", "Imagined Date: " + mUserReminderDate);
             String timeString;
             if (time24) {
                 timeString = formatDate("k:mm", mUserReminderDate);
@@ -405,7 +413,7 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        Log.d("OskarSchindler", "Time set: " + hour);
+        Log.d("Statuss", "Time set: " + hour);
         calendar.set(year, month, day, hour, minute, 0);
         mUserReminderDate = calendar.getTime();
 
@@ -472,7 +480,6 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
             Log.d(TAG, "Description: " + mUserEnteredDescription);
             mUserToDoItem.setmToDoDescription(mUserEnteredDescription);
         }
-//        mUserToDoItem.setLastEdited(mLastEdited);
         if (mUserReminderDate != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mUserReminderDate);
@@ -576,7 +583,6 @@ public class TodoFragment extends BaseFragment implements DatePickerDialog.OnDat
         }
 
     }
-
 
     @Override
     protected int layoutRes() {

@@ -298,7 +298,6 @@ public class MainFragment extends BaseFragment {
                 i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                 i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                 createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-//                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
             }
 
             for (int i = 0; i < mToDoItemsArrayList.size(); i++) {
@@ -330,7 +329,6 @@ public class MainFragment extends BaseFragment {
         AlarmManager am = getAlarmManager();
         PendingIntent pi = PendingIntent.getService(getContext(), requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
         am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pi);
-//        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pi.toString());
     }
 
     private void deleteAlarm(Intent i, int requestCode) {
@@ -491,10 +489,10 @@ public class MainFragment extends BaseFragment {
                         startActivityForResult(i, REQUEST_ID_TODO_ITEM);
                     }
                 });
-                mToDoTextview = (TextView) v.findViewById(R.id.toDoListItemTextview);
-                mTimeTextView = (TextView) v.findViewById(R.id.todoListItemTimeTextView);
-                mColorImageView = (ImageView) v.findViewById(R.id.toDoListItemColorImageView);
-                linearLayout = (LinearLayout) v.findViewById(R.id.listItemLinearLayout);
+                mToDoTextview = v.findViewById(R.id.toDoListItemTextview);
+                mTimeTextView = v.findViewById(R.id.todoListItemTimeTextView);
+                mColorImageView = v.findViewById(R.id.toDoListItemColorImageView);
+                linearLayout = v.findViewById(R.id.listItemLinearLayout);
             }
 
 

@@ -1,6 +1,7 @@
 package bahaa.apps.pockettodo.settings;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -9,8 +10,10 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import bahaa.apps.pockettodo.R;
+import bahaa.apps.pockettodo.main.MainActivity;
 import bahaa.apps.pockettodo.main.MainFragment;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -25,10 +28,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         if (backArrow != null) {
             backArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
@@ -38,6 +41,15 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(backArrow);
         }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent main = new Intent(SettingsActivity.this, MainActivity.class);
+                main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(main);
+            }
+        });
 
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.mycontent, new SettingsFragment()).commit();

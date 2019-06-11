@@ -1,4 +1,5 @@
 package bahaa.apps.pockettodo.remainder;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -32,7 +33,6 @@ import bahaa.apps.pockettodo.utils.TodoItem;
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 import static android.content.Context.MODE_PRIVATE;
-import static java.security.AccessController.getContext;
 
 public class ReminderFragment extends BaseFragment {
     private TextView mtoDoTextTextView;
@@ -74,10 +74,10 @@ public class ReminderFragment extends BaseFragment {
 
         snoozeOptionsArray = getResources().getStringArray(R.array.snooze_options);
 
-        mRemoveToDoButton = (Button) view.findViewById(R.id.toDoReminderRemoveButton);
-        mtoDoTextTextView = (TextView) view.findViewById(R.id.toDoReminderTextViewBody);
-        mSnoozeTextView = (TextView) view.findViewById(R.id.reminderViewSnoozeTextView);
-        mSnoozeSpinner = (MaterialSpinner) view.findViewById(R.id.todoReminderSnoozeSpinner);
+        mRemoveToDoButton = view.findViewById(R.id.toDoReminderRemoveButton);
+        mtoDoTextTextView = view.findViewById(R.id.toDoReminderTextViewBody);
+        mSnoozeTextView = view.findViewById(R.id.reminderViewSnoozeTextView);
+        mSnoozeSpinner = view.findViewById(R.id.todoReminderSnoozeSpinner);
 
 //        mtoDoTextTextView.setBackgroundColor(item.getTodoColor());
         mtoDoTextTextView.setText(mItem.getToDoText());
@@ -171,7 +171,7 @@ public class ReminderFragment extends BaseFragment {
                 Date date = addTimeToDate(valueFromSpinner());
                 mItem.setToDoDate(date);
                 mItem.setHasReminder(true);
-                Log.d("OskarSchindler", "Date Changed to: " + date);
+                Log.d("Statuss", "Date Changed to: " + date);
                 changeOccurred();
                 saveData();
                 closeApp();

@@ -16,14 +16,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword 'Bahaa1234'
+            storeFile file('Pocket Todos/pocket_todos.jks')
+            storePassword 'Bahaa1234'
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:support-v13:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:23.1.0'
+    implementation 'com.android.support:design:23.1.0'
+    implementation 'com.android.support:appcompat-v7:23.1.0'
+    implementation 'com.android.support:support-v13:23.1.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.1.0'
     implementation 'com.github.ganfra:material-spinner:1.1.0'
     implementation 'com.wdullaer:materialdatetimepicker:1.5.1'

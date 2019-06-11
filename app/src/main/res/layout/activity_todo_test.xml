@@ -26,7 +26,7 @@
                 android:orientation="vertical">
 
 
-                <com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout
+                <bahaa.apps.pockettodo.utils.CustomTextInputLayout
                     android:id="@+id/toDoCustomTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                         android:maxLines="3"
                         android:textColor="@color/icons" />
 
-                </com.example.avjindersinghsekhon.minimaltodo.Utility.CustomTextInputLayout>
+                </bahaa.apps.pockettodo.utils.CustomTextInputLayout>
 
             </LinearLayout>
 
